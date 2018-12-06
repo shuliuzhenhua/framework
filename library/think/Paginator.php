@@ -420,13 +420,25 @@ abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, J
                 'data'         => $this->items->toArray(),
             ];
         } else {
-            return [
+            if ($this->simple) {
+                return [
+                'per_page'     => $this->listRows,
+                'current_page' => $this->currentPage,
+                'has_more'     => $this->hasMore,
+                'data'         => $this->items->toArray(),
+            ];
+            } else {
+                return [
                 'total'        => $this->total,
                 'per_page'     => $this->listRows,
                 'current_page' => $this->currentPage,
                 'last_page'    => $this->lastPage,
                 'data'         => $this->items->toArray(),
+                'count'        => $this->total,
+                'code'         => 0,
+                'msg'          => ''
             ];
+            }
         }
     }
 
